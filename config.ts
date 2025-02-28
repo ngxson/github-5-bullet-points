@@ -1,7 +1,7 @@
 import 'dotenv/config';
 
 const DEFAULT_README_TEMPLATE = `
-Five bullets of what I accomplished last week:
+Five bullet points of what I accomplished last week:
 
 {content}
 
