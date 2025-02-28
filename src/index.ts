@@ -25,7 +25,7 @@ Each event will be delivered in an user message. After each message, you need to
 
 async function main() {
   const octokit = new Octokit({
-    auth: CONFIG.githubPAT,
+    // auth: CONFIG.githubPAT,
   });
 
   const now = Date.now();
@@ -108,8 +108,11 @@ async function main() {
   console.log('\n\n====================\n\n');
   console.log(readmeContent);
   console.log('\n\n====================\n\n');
+  const octokitWrite = new Octokit({
+    auth: CONFIG.githubPATWrite,
+  });
   await pushFile({
-    octokit,
+    octokit: octokitWrite,
     owner: CONFIG.githubUsername!,
     repo: CONFIG.githubUsername!,
     path: 'README.md',

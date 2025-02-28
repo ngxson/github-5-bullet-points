@@ -10,7 +10,7 @@ Five bullets of what I accomplished last week:
 
 export const CONFIG = {
   githubUsername: process.env.GITHUB_USERNAME || process.env.GITHUB_ACTOR,
-  githubPAT: process.env.GITHUB_PAT,
+  githubPATWrite: process.env.GH_PAT_WRITE,
 
   oaiCompatUrl: process.env.OAI_COMPAT_URL,
   oaiCompatToken: process.env.OAI_COMPAT_TOKEN,
@@ -27,7 +27,7 @@ if (!CONFIG.githubUsername) {
   throw new Error('GITHUB_USERNAME is required');
 }
 
-if (!CONFIG.githubPAT) {
+if (!CONFIG.githubPATWrite) {
   throw new Error('GITHUB_PAT is required');
 }
 

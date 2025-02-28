@@ -2,10 +2,8 @@ name: Run it
 on:
   # push: # for debugging
   workflow_dispatch:
-  schedule: '0 19 * * 5' # every friday at 7pm, you may need to adapt this
-
-permissions:
-  contents: write # for editing content of README file
+  schedule:
+    - cron: '0 19 * * 5' # every friday at 7pm, you may need to adapt this
 
 jobs:
   run-it:
