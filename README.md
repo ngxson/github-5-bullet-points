@@ -4,6 +4,13 @@ This repo creates a weekly sum up from your Github activities, in 5 bullet point
 
 Why? Please search on Google for `Send 5 bullets of what you accomplished last week`
 
+## How it works
+
+- We user Github API `/users/{username}/events` to list all your **public** events (no private events for now)
+- Convert it to prompt
+- Ask LLM to summarize, you can use any OpenAI-compatible API provider
+- Push the summarization to `README.md` of your `https://github.com/{your_username}/{your_username}`
+
 ## How to install it?
 
 1. Make sure you created a repo at `https://github.com/{your_username}/{your_username}`. It can be either a blank repo or with an existing README
