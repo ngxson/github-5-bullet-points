@@ -6,6 +6,7 @@ import { createChatCmpl } from "./llm";
 type ListUserEvents = Endpoints["GET /users/{username}/events"];
 
 const MAX_CONTENT_LENGTH = 1000;
+const MAX_PAGE = 3; // max number of pages used by /users/{username}/events
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -148,7 +149,7 @@ async function getAllEvents({
       }
       events.push(...res.data);
       page++;
-      break;
+      if (page > MAX_PAGE) break;
       delay(100);
     } catch (e) {
       if (e.status === 422) {
