@@ -1,0 +1,35 @@
+{
+  "name": "github-5-bullet-points",
+  "version": "1.0.0",
+  "description": "Generate 5 bullet points for your Github profile, then update to your personal README.md",
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ngxson/github-5-bullet-points.git"
+  },
+  "keywords": [
+    "llm",
+    "github",
+    "bullet-points",
+    "boring",
+    "productivity"
+  ],
+  "author": "Xuan-Son Nguyen <contact@ngxson.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ngxson/github-5-bullet-points/issues"
+  },
+  "homepage": "https://github.com/ngxson/github-5-bullet-points#readme",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "octokit": "^4.1.2",
+    "openai": "^4.86.1",
+    "tsx": "^4.19.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.5"
+  }
+}

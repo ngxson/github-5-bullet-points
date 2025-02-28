@@ -1,0 +1,24 @@
+name: Run it
+on:
+  # push: # for debugging
+  workflow_dispatch:
+  schedule: '0 19 * * 5' # every friday at 7pm, you may need to adapt this
+
+permissions:
+  contents: write # for editing content of README file
+
+jobs:
+  run-it:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          npm ci
+
+      - name: Run script
+        shell: bash
+        run: |
+          npm start
