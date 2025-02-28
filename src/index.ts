@@ -174,6 +174,19 @@ async function pushFile({
   octokit: Octokit, owner:string, repo: string, path: string, content: string
 }) {
   console.log(`Pushing file to ${owner}/${repo}/${path}`);
+  // firstly check if file exists
+  let sha: string | undefined = undefined;
+  try {
+    const file = await octokit.rest.repos.getContent({
+      owner,
+      repo,
+      path,
+    });
+    // @ts-ignore
+    sha = file.data?.sha;
+  } catch (e) {
+    // ignored
+  }
   const res = await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
     owner,
     repo,
@@ -183,6 +196,7 @@ async function pushFile({
       name: 'machineuser',
       email: 'machineuser@github.com'
     },
+    sha,
     content: Buffer.from(content).toString('base64'),
     headers: {
       'X-GitHub-Api-Version': '2022-11-28'
