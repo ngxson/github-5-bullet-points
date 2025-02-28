@@ -28,7 +28,7 @@ if (!CONFIG.githubUsername) {
 }
 
 if (!CONFIG.githubPATWrite) {
-  throw new Error('GITHUB_PAT is required');
+  throw new Error('GH_PAT_WRITE is required');
 }
 
 if (!CONFIG.oaiCompatUrl) {
