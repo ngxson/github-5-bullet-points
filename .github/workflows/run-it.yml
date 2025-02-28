@@ -20,10 +20,10 @@ jobs:
         shell: bash
         env:
           GH_PAT_WRITE: ${{ secrets.GH_PAT_WRITE }}
-          OAI_COMPAT_URL: ${{ secrets.OAI_COMPAT_URL || env.OAI_COMPAT_URL }}
+          OAI_COMPAT_URL: ${{ secrets.OAI_COMPAT_URL }}
           OAI_COMPAT_TOKEN: ${{ secrets.OAI_COMPAT_TOKEN }}
-          OAI_COMPAT_EXTRA_BODY: ${{ secrets.OAI_COMPAT_EXTRA_BODY || env.OAI_COMPAT_EXTRA_BODY }}
-          OAI_COMPAT_EXTRA_HEADERS: ${{ secrets.OAI_COMPAT_EXTRA_HEADERS || env.OAI_COMPAT_EXTRA_HEADERS }}
-          README_TEMPLATE: ${{ secrets.README_TEMPLATE || env.README_TEMPLATE }}
+          OAI_COMPAT_EXTRA_BODY: ${{ secrets.OAI_COMPAT_EXTRA_BODY }}
+          OAI_COMPAT_EXTRA_HEADERS: ${{ secrets.OAI_COMPAT_EXTRA_HEADERS }}
+          README_TEMPLATE: ${{ env.README_TEMPLATE }}
         run: |
           npm start
