@@ -15,6 +15,7 @@ export async function createChatCmpl(messages: { role: string; content: string }
     // model: 'deepseek/deepseek-r1-distill-qwen-14b',
     messages,
     stream: true,
+    temperature: 0.05,
     ...CONFIG.oaiCompatExtraBody,
   }) as any as Stream<OpenAI.Chat.Completions.ChatCompletionChunk>;
   let output = '';

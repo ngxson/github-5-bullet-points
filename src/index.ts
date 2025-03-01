@@ -11,17 +11,23 @@ const MAX_PAGE = 3; // max number of pages used by /users/{username}/events
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const PROMPT = `
-Below is a series of Github events by ${CONFIG.githubUsername} in the last week. Please summarize the events in 5 bullet points. Write the response inside a YAML code block. For example:
+Below is a series of Github events by ${CONFIG.githubUsername} in the last week. Each event will be delivered in an user message.
+
+After each message, you need to reply nothing (empty response), then wait until user sends the message contains "=== THIS IS THE END OF THE EVENTS ===" to stop the event stream. After that, you need to follow the next provided instruction.
+`.trim();
+
+const PROMPT_END = `
+=== THIS IS THE END OF THE EVENTS ===
+
+Please summarize the events in 5 bullet points. Write the response inside a YAML code block. Remember to add markdown style link to the project. Add some emoji for fun. Only include events that you are SURE about it. For example:
 
 \`\`\`yaml
-- Fix [a bug](https://github.com/kubernetes/kubernetes/issues/5351) related to GRPC on Kubernetes
-- Working on [a refactoring PR](https://github.com/uigraph/uigraph/pull/123) for the backend of UIGraph
-- Reviewing PRs for type definition in UIGraph: [#125](https://github.com/uigraph/uigraph/pull/125), [#127](https://github.com/uigraph/uigraph/pull/127), etc.
-- Discussing on [a new model](https://github.com/thatguy/popchat/discussions/3620) for Popachat
-- Investigating [a bug](https://github.com/theworld/ppk/issues/643) related to PPK API
+- Fix a bug 🐛 related to GRPC on [Kubernetes](https://github.com/kubernetes/kubernetes)
+- Working on a refactoring PR 🚀 for the backend of [UIGraph](https://github.com/uigraph/uigraph)
+- Reviewing PRs 🔍 for type definition in [UIGraph](https://github.com/uigraph/uigraph)
+- Discussing 💬 on a new model for [Popchat](https://github.com/thatguy/popchat)
+- Investigating a bug 🏃 related to [PPK API](https://github.com/theworld/ppk-api)
 \`\`\`
-
-Each event will be delivered in an user message. After each message, you need to reply nothing (empty response), then wait until user sends the message contains "=== THIS IS THE END OF THE EVENTS ===" to stop the event stream. After that, you need to reply with the summary in YAML format.
 `.trim();
 
 async function main() {
@@ -83,7 +89,7 @@ async function main() {
     messages.push({ role: 'assistant', content: '(empty response)' });
   }
 
-  messages.push({ role: 'user', content: '=== THIS IS THE END OF THE EVENTS ===' });
+  messages.push({ role: 'user', content: PROMPT_END });
   console.log(`Total messages: ${messages.length}`);
 
   // create a chat summary
@@ -109,6 +115,10 @@ async function main() {
   console.log('\n\n====================\n\n');
   console.log(readmeContent);
   console.log('\n\n====================\n\n');
+  if (CONFIG.githubPATWrite === 'test') {
+    console.log('Dry run, not pushing to Github');
+    return;
+  }
   const octokitWrite = new Octokit({
     auth: CONFIG.githubPATWrite,
   });
