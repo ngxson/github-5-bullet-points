@@ -33,7 +33,7 @@ Demo:
   - Name: `GH_PAT_WRITE`
   - Value: The token from step 4
 7. Depending on which LLM inference provider you want to use, follow to guide accordingly:
-  - Recommended: use [Hugging Face Inference Provider](https://huggingface.co/blog/inference-providers), create 3 more secrets
+  - Recommended: use `DeepSeek-R1-Qwen-14B` [Hugging Face Inference Provider](https://huggingface.co/blog/inference-providers), create 3 more secrets
     - `OAI_COMPAT_URL`: `https://router.huggingface.co/{provider}`  
       Example: `https://router.huggingface.co/novita`
     - `OAI_COMPAT_TOKEN`: The token created from https://huggingface.co/settings/tokens (remember to check `Make calls to inference providers` when create it)
