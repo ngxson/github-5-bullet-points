@@ -32,6 +32,7 @@ Please summarize the events in 5 bullet points. Write the response inside a YAML
 
 async function main() {
   const octokit = new Octokit({
+    // Only PUBLIC repo for now!!!
     // auth: CONFIG.githubPAT,
   });
 

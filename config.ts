@@ -20,6 +20,8 @@ export const CONFIG = {
   readmeTemplate: process.env.README_TEMPLATE || DEFAULT_README_TEMPLATE,
 
   blacklistedRepos: new Set((process.env.BLACKLISTED_REPOS || '').split(/,\n/)),
+
+  // private repo are not supported yet, this is for future implementation
   allowPrivateRepo: process.env.ALLOW_PRIVATE_REPO === 'yes_i_know_that_it_is_insecure_but_i_want_to_use_it_anyway',
 };
 

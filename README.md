@@ -4,6 +4,10 @@ This repo creates a weekly sum up from your Github activities, in 5 bullet point
 
 Why? Please search on Google for `Send 5 bullets of what you accomplished last week`
 
+> [!IMPORTANT]
+>
+> Security concern? For now, this can only read your **PUBLIC** interaction, meaning only **public** repos are taken into account.
+
 Demo:
 
 ![demo](./demo.png)
