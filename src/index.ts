@@ -56,17 +56,29 @@ async function main() {
     if (!isOK) {
       console.log('Skipping private event');
     }
+    let evType = event.type;
+    if (evType === 'PushEvent' || evType === 'WatchEvent' || evType === 'ForkEvent') {
+      continue;
+    }
+    if (evType === 'CreateEvent' && event.payload) {
+      // @ts-expect-error
+      evType = `Create ${event.payload.ref_type} "${event.payload.ref}"`;
+    }
+    if (evType === 'DeleteEvent' && event.payload) {
+      // @ts-expect-error
+      evType = `Delete ${event.payload.ref_type} "${event.payload.ref}"`;
+    }
+    if (event.payload?.action) {
+      evType = `${evType} (Action: ${event.payload.action})`;
+    }
     const text = [
       '=== EVENT ===',
       `Timestamp: ${event.created_at ? isoDateToString(event.created_at) : '(unknown)'}`,
-      `Type: ${event.type}`,
+      `Type: ${evType}`,
       `Actor: ${event.actor.login}`,
       `Repo: ${event.repo.name}`,
     ];
-    const { payload: { action, comment, issue, pages } } = event;
-    if (action) {
-      text.push(`Action: ${action}`);
-    }
+    const { payload: { comment, issue, pages } } = event;
     if (comment) {
       text.push(`Link: ${comment.html_url}`);
       if (issue) {
@@ -85,7 +97,7 @@ async function main() {
       text.push(`Title: ${page.title}`);
       text.push(`Content: ${truncate(page.summary ?? '', MAX_CONTENT_LENGTH)}`);
     }
-    // console.log(text.join('\n'));
+    //(await import('fs')).appendFileSync('events.txt', text.join('\n') + '\n\n');
     messages.push({ role: 'user', content: text.join('\n') });
     messages.push({ role: 'assistant', content: '(empty response)' });
   }
